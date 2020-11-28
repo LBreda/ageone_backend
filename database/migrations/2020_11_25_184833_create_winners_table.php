@@ -35,11 +35,11 @@ class CreateWinnersTable extends Migration
     {
         Schema::create($this->table_name, function (Blueprint $table) {
             $table->unsignedBigInteger('game_id')->primary();
-            $table->unsignedBigInteger('team_id');
+            $table->unsignedBigInteger('team_no');
             $table->timestamps();
         });
         Schema::table($this->table_name, function (Blueprint $table) {
-            $table->foreign(['game_id', 'team_id'])->references(['game_id', 'team_id'])->on('games_teams');
+            $table->foreign(['game_id', 'team_no'])->references(['game_id', 'team_no'])->on('games_teams');
         });
     }
 
@@ -51,7 +51,7 @@ class CreateWinnersTable extends Migration
     public function down()
     {
         Schema::table($this->table_name, function (Blueprint $table) {
-            $table->dropForeign($this->table_name.'_game_id_team_id_foreign');
+            $table->dropForeign($this->table_name.'_game_id_team_no_foreign');
         });
         Schema::dropIfExists($this->table_name);
     }

@@ -35,15 +35,16 @@ class CreateSheratonsTable extends Migration
     {
         Schema::create($this->table_name, function (Blueprint $table) {
             $table->unsignedBigInteger('game_id');
+            $table->unsignedBigInteger('gamer_id');
             $table->unsignedBigInteger('color_id');
-            $table->unsignedBigInteger('team_id');
             $table->timestamps();
         });
         Schema::table($this->table_name, function (Blueprint $table) {
             $table->foreign('game_id')->references('id')->on('games');
+            $table->foreign('gamer_id')->references('id')->on('gamers');
             $table->foreign('color_id')->references('id')->on('colors');
-            $table->foreign(['game_id', 'team_id'])->references(['game_id', 'team_id'])->on('games_teams');
-            $table->primary(['game_id', 'color_id']);
+            $table->foreign(['game_id', 'color_id'])->references(['game_id', 'color_id'])->on('participations');
+            $table->primary(['game_id', 'gamer_id']);
         });
     }
 

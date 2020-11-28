@@ -35,16 +35,17 @@ class CreateParticipationsTable extends Migration
     {
         Schema::create($this->table_name, function (Blueprint $table) {
             $table->unsignedBigInteger('game_id');
-            $table->unsignedBigInteger('gamer_id');
             $table->unsignedBigInteger('color_id');
             $table->unsignedBigInteger('civilization_id');
+            $table->unsignedBigInteger('team_no');
             $table->timestamps();
         });
         Schema::table($this->table_name, function (Blueprint $table) {
             $table->foreign('game_id')->references('id')->on('games');
-            $table->foreign('gamer_id')->references('id')->on('gamers');
+            $table->foreign('color_id')->references('id')->on('colors');
             $table->foreign('civilization_id')->references('id')->on('civilizations');
-            $table->primary(['game_id', 'gamer_id']);
+            $table->foreign(['game_id', 'team_no'])->references(['game_id', 'team_no'])->on('games_teams');
+            $table->primary(['game_id', 'color_id']);
         });
     }
 
@@ -57,8 +58,9 @@ class CreateParticipationsTable extends Migration
     {
         Schema::table($this->table_name, function (Blueprint $table) {
             $table->dropForeign($this->table_name.'_game_id_foreign');
-            $table->dropForeign($this->table_name.'_gamer_id_foreign');
+            $table->dropForeign($this->table_name.'_color_id_foreign');
             $table->dropForeign($this->table_name.'_civilization_id_foreign');
+            $table->dropForeign($this->table_name.'_game_id_team_no_foreign');
         });
         Schema::drop($this->table_name);
     }

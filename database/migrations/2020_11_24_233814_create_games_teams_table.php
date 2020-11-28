@@ -35,12 +35,12 @@ class CreateGamesTeamsTable extends Migration
     {
         Schema::create($this->table_name, function (Blueprint $table) {
             $table->unsignedBigInteger('game_id');
-            $table->unsignedBigInteger('team_id');
+            $table->unsignedBigInteger('team_no');
             $table->timestamps();
         });
         Schema::table($this->table_name, function (Blueprint $table) {
             $table->foreign('game_id')->references('id')->on('games');
-            $table->primary(['game_id', 'team_id']);
+            $table->primary(['game_id', 'team_no']);
         });
     }
 
