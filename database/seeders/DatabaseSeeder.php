@@ -13,6 +13,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(ExpansionsSeeder::class);
+        $this->call(CivilizationsSeeder::class);
         $this->call(PlayersSeeder::class);
         $this->call(ColorsSeeder::class);
     }
