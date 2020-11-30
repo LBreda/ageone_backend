@@ -22,9 +22,9 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCivilizationsTable extends Migration
+class CreateExpansionsTable extends Migration
 {
-    private string $table_name = 'civilizations';
+    private string $table_name = 'expansions';
 
     /**
      * Run the migrations.
@@ -36,12 +36,7 @@ class CreateCivilizationsTable extends Migration
         Schema::create($this->table_name, function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('expansion_id');
             $table->timestamps();
-        });
-
-        Schema::table($this->table_name, function (Blueprint $table) {
-            $table->foreign('expansion_id')->references('id')->on('expansions');
         });
     }
 
@@ -52,10 +47,6 @@ class CreateCivilizationsTable extends Migration
      */
     public function down()
     {
-        Schema::table($this->table_name, function (Blueprint $table) {
-            $table->dropForeign($this->table_name . '_expansion_id_foreign');
-        });
-
         Schema::drop($this->table_name);
     }
 }
