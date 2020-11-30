@@ -16,7 +16,7 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/
+ */
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -55,8 +55,8 @@ class CreateGamesTable extends Migration
     public function down()
     {
         Schema::table($this->table_name, function (Blueprint $table) {
-            $table->dropForeign($this->table_name.'_map_id_foreign');
-            $table->dropForeign($this->table_name.'_mode_id_foreign');
+            $table->dropForeign($this->table_name . '_map_id_foreign');
+            $table->dropForeign($this->table_name . '_mode_id_foreign');
         });
         Schema::drop($this->table_name);
     }

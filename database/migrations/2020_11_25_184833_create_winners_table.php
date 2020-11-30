@@ -16,7 +16,7 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/
+ */
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -39,7 +39,8 @@ class CreateWinnersTable extends Migration
             $table->timestamps();
         });
         Schema::table($this->table_name, function (Blueprint $table) {
-            $table->foreign(['game_id', 'team_no'])->references(['game_id', 'team_no'])->on('games_teams');
+            $table->foreign(['game_id', 'team_no'], $this->table_name . '_game_id_team_no_foreign')
+                ->references(['game_id', 'team_no'])->on('games_teams');
         });
     }
 
@@ -51,7 +52,7 @@ class CreateWinnersTable extends Migration
     public function down()
     {
         Schema::table($this->table_name, function (Blueprint $table) {
-            $table->dropForeign($this->table_name.'_game_id_team_no_foreign');
+            $table->dropForeign($this->table_name . '_game_id_team_no_foreign');
         });
         Schema::dropIfExists($this->table_name);
     }

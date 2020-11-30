@@ -40,10 +40,9 @@ class CreateSheratonsTable extends Migration
             $table->timestamps();
         });
         Schema::table($this->table_name, function (Blueprint $table) {
-            $table->foreign('game_id')->references('id')->on('games');
             $table->foreign('player_id')->references('id')->on('players');
-            $table->foreign('color_id')->references('id')->on('colors');
-            $table->foreign(['game_id', 'color_id'])->references(['game_id', 'color_id'])->on('participations');
+            $table->foreign(['game_id', 'color_id'], $this->table_name . '_game_id_color_id_foreign')
+                ->references(['game_id', 'color_id'])->on('participations');
             $table->primary(['game_id', 'player_id']);
         });
     }
@@ -55,6 +54,10 @@ class CreateSheratonsTable extends Migration
      */
     public function down()
     {
+        Schema::table($this->table_name, function (Blueprint $table) {
+            $table->dropForeign($this->table_name . '_player_id_foreign');
+            $table->dropForeign($this->table_name . '_game_id_color_id_foreign');
+        });
         Schema::dropIfExists($this->table_name);
     }
 }

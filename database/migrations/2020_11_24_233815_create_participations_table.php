@@ -16,7 +16,7 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/
+ */
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -36,15 +36,15 @@ class CreateParticipationsTable extends Migration
         Schema::create($this->table_name, function (Blueprint $table) {
             $table->unsignedBigInteger('game_id');
             $table->unsignedBigInteger('color_id');
-            $table->unsignedBigInteger('civilization_id');
             $table->unsignedBigInteger('team_no');
+            $table->unsignedBigInteger('civilization_id');
             $table->timestamps();
         });
         Schema::table($this->table_name, function (Blueprint $table) {
-            $table->foreign('game_id')->references('id')->on('games');
             $table->foreign('color_id')->references('id')->on('colors');
             $table->foreign('civilization_id')->references('id')->on('civilizations');
-            $table->foreign(['game_id', 'team_no'])->references(['game_id', 'team_no'])->on('games_teams');
+            $table->foreign(['game_id', 'team_no'], $this->table_name . '_game_id_team_no_foreign')
+                ->references(['game_id', 'team_no'])->on('games_teams');
             $table->primary(['game_id', 'color_id']);
         });
     }
@@ -57,10 +57,9 @@ class CreateParticipationsTable extends Migration
     public function down()
     {
         Schema::table($this->table_name, function (Blueprint $table) {
-            $table->dropForeign($this->table_name.'_game_id_foreign');
-            $table->dropForeign($this->table_name.'_color_id_foreign');
-            $table->dropForeign($this->table_name.'_civilization_id_foreign');
-            $table->dropForeign($this->table_name.'_game_id_team_no_foreign');
+            $table->dropForeign($this->table_name . '_color_id_foreign');
+            $table->dropForeign($this->table_name . '_civilization_id_foreign');
+            $table->dropForeign($this->table_name . '_game_id_team_no_foreign');
         });
         Schema::drop($this->table_name);
     }
