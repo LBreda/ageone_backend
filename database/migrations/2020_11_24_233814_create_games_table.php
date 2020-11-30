@@ -36,8 +36,8 @@ class CreateGamesTable extends Migration
         Schema::create($this->table_name, function (Blueprint $table) {
             $table->id();
             $table->dateTime('date');
-            $table->unsignedBigInteger('map_id');
-            $table->unsignedBigInteger('mode_id');
+            $table->unsignedBigInteger('map_id')->nullable();
+            $table->unsignedBigInteger('mode_id')->nullable();
             $table->json('meta_json');
             $table->timestamps();
         });
