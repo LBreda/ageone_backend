@@ -4,8 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class ColorsSeeder extends Seeder
 {
+    use SeederHelper;
     /**
      * Run the database seeds.
      *
@@ -13,7 +14,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(PlayersSeeder::class);
-        $this->call(ColorsSeeder::class);
+        $this->fill_table('colors', 'colors.csv');
     }
 }
