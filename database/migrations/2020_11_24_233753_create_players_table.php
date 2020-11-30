@@ -22,9 +22,9 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGamersTable extends Migration
+class CreatePlayersTable extends Migration
 {
-    private string $table_name = 'gamers';
+    private string $table_name = 'players';
 
     /**
      * Run the migrations.
