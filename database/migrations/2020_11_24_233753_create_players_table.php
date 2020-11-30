@@ -43,6 +43,7 @@ class CreatePlayersTable extends Migration
             $table->timestamps();
         });
         Schema::table($this->table_name, function (Blueprint $table) {
+            $table->unique('nickname', $this->table_name . '_nickname_unique');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
@@ -55,6 +56,7 @@ class CreatePlayersTable extends Migration
     public function down()
     {
         Schema::table($this->table_name, function (Blueprint $table) {
+            $table->dropUnique($this->table_name . '_nickname_unique');
             $table->dropForeign($this->table_name . '_user_id_foreign');
         });
         Schema::drop($this->table_name);
