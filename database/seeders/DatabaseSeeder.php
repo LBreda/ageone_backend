@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(ExpansionsSeeder::class);
         $this->call(CivilizationsSeeder::class);
+        $this->call(MapsSeeder::class);
+        $this->call(ModesSeeder::class);
         $this->call(PlayersSeeder::class);
         $this->call(ColorsSeeder::class);
     }
