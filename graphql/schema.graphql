@@ -1,0 +1,18 @@
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+type Query {
+    players: [Player!]! @all
+    player(id: ID): Player @find
+}
+
+type Player {
+    id: ID!
+    name: String
+    surname: String
+    nickname: String!
+    birth_date: String!
+    elo: Int!
+    created_at: DateTime!
+    updated_at: DateTime!
+}
